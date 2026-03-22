@@ -63,3 +63,10 @@ sequenceDiagram
     Node->>Workspace: 2. Send Post-Trip Thank You Email (with Promo Code)
     Workspace-->>Node: 3. Email Sent Successfully
 ```
+
+## Implementation Roadmap
+
+- [ ] **Phase 1: Foundation & Webhook** - Set up Node.js/Express server and define webhook endpoints for client requests.
+- [ ] **Phase 2: AI Integration** - Integrate Gemini API for Natural Language intent parsing and structured JSON extraction.
+- [ ] **Phase 3: Workspace Orchestration** - Implement Google Calendar and Gmail API integrations via OAuth 2.0.
+- [ ] **Phase 4: Deployment** - Containerize the application with Docker and deploy to Google Cloud Run.
