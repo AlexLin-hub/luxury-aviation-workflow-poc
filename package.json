@@ -5,19 +5,19 @@
   "description": "This is a proof of concept for a luxury aviation workflow.",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon index.ts"
+    "start": "nodemon index.ts",
+    "build": "tsc -p tsconfig.json"
   },
   "keywords": [],
   "author": "Uncle Lin",
   "license": "ISC",
-  "dependencies": {
-    "express": "^5.2.1"
-  },
   "devDependencies": {
-    "@types/express": "^5.0.6",
     "@types/node": "^25.5.2",
     "nodemon": "^3.1.14",
     "ts-node": "^10.9.2",
     "typescript": "^6.0.2"
+  },
+  "dependencies": {
+    "fastify": "^5.8.4"
   }
 }
