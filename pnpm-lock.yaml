@@ -11,6 +11,9 @@ importers:
       fastify:
         specifier: ^5.8.4
         version: 5.8.4
+      typebox:
+        specifier: ^1.1.14
+        version: 1.1.14
     devDependencies:
       '@types/node':
         specifier: ^25.5.2
@@ -368,6 +371,9 @@ packages:
       '@swc/wasm':
         optional: true
 
+  typebox@1.1.14:
+    resolution: {integrity: sha512-R9qoa9IE8Yevoy06ixre1VkribJwOl1wj5fq60gUK6Qxkd2Cw+omHEaHnJh+uE4ewMjLWweR3RERKvhjEtLWsA==}
+
   typescript@6.0.2:
     resolution: {integrity: sha512-bGdAIrZ0wiGDo5l8c++HWtbaNCWTS4UTv7RaTH/ThVIgjkveJt83m74bBHMJkuCbslY8ixgLBVZJIOiQlQTjfQ==}
     engines: {node: '>=14.17'}
@@ -721,6 +727,8 @@ snapshots:
       typescript: 6.0.2
       v8-compile-cache-lib: 3.0.1
       yn: 3.1.1
+
+  typebox@1.1.14: {}
 
   typescript@6.0.2: {}
 
