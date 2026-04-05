@@ -4,7 +4,7 @@ import { Type } from "typebox"
 
 const server = fastify().withTypeProvider<TypeBoxTypeProvider>();
 const bookingSchema = Type.Object({
-    name: Type.String(),
+    message: Type.String(),
     email: Type.String({ format: "email" }),
 });
 
