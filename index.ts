@@ -1,15 +1,19 @@
-import express, { type Request, type Response } from "express";
+import fastify, { type FastifyInstance } from "fastify";
 
-const app = express();
-const router = express.Router();
+const server = fastify();
 
-router.get("/booking", (_: Request, res: Response) => {
-    console.log("Booking request received");
-    res.status(200).send("Hello VIP Workflow!");
-});
+function handleBooking(fastify: FastifyInstance) {
+    fastify.get("/booking", async () => {
+        return "Hello VIP Workflow!";
+    });
+}
 
-app.use("/api", router);
+server.register(handleBooking, { prefix: "/api/webhook" });
 
-app.listen(3000, () => {
-    console.log("Server is running on port 3000");
+server.listen({ port: 3000 }, (err, address) => {
+    if (err) {
+        console.error(err);
+        process.exit(1);
+    }
+    console.log(`Server listening at ${address}`);
 });
