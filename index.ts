@@ -1,26 +1,19 @@
 import fastify, { type FastifyInstance } from "fastify";
-import Type from "typebox"
-import Value from "typebox/value";
+import { type TypeBoxTypeProvider } from "@fastify/type-provider-typebox";
+import { Type } from "typebox"
 
-const server = fastify();
+const server = fastify().withTypeProvider<TypeBoxTypeProvider>();
 const bookingSchema = Type.Object({
     name: Type.String(),
     email: Type.String({ format: "email" }),
 });
 
-type Booking = Type.Static<typeof bookingSchema>;
-
-function validateBooking(body: Booking): boolean {
-    return Value.Check(bookingSchema, body)
-}
+// type Booking = Type.Static<typeof bookingSchema>;
 
 function handleBooking(fastify: FastifyInstance) {
-    fastify.post("/booking", async (request, reply) => {
-        const body = request.body as Booking;
-        const isVaild = validateBooking(body)
-        console.log({ isVaild, body });
-        if (isVaild) reply.status(200).send({ message: "Booking received" });
-        else reply.status(400).send({ message: "Booking failed." });
+    fastify.post("/booking", { schema: { body: bookingSchema } }, async (request, reply) => {
+        // const body = request.body as Booking;
+        reply.status(200).send({ message: "Booking received." })
     });
 }
 
