@@ -27,7 +27,7 @@ async function handleBooking(fastify: FastifyInstance) {
     });
 }
 
-server.register(handleBooking, { prefix: "/api/webhook" });
+server.register(handleBooking, { prefix: "/api" });
 
 server.listen({ port: 3000 }, (err, address) => {
     if (err) {
