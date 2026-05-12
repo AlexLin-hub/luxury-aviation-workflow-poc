@@ -1,30 +1,33 @@
 import fastify, { type FastifyInstance } from "fastify";
-import Type from "typebox"
-import Value from "typebox/value";
+import { type TypeBoxTypeProvider } from "@fastify/type-provider-typebox";
+import { Type } from "typebox"
+import { GenerateContentResponse, GoogleGenAI, type GenerateContentParameters } from "@google/genai";
 
-const server = fastify();
+const server = fastify().withTypeProvider<TypeBoxTypeProvider>();
+const ai = new GoogleGenAI({})
+
 const bookingSchema = Type.Object({
-    name: Type.String(),
+    message: Type.String(),
     email: Type.String({ format: "email" }),
 });
 
 type Booking = Type.Static<typeof bookingSchema>;
 
-function validateBooking(body: Booking): boolean {
-    return Value.Check(bookingSchema, body)
+async function askGemini(contents: GenerateContentParameters['contents']): Promise<GenerateContentResponse['text']> {
+    const response = await ai.models.generateContent({ model: "gemini-2.5-flash", contents })
+    const { text } = response
+    return text
 }
 
-function handleBooking(fastify: FastifyInstance) {
-    fastify.post("/booking", async (request, reply) => {
-        const body = request.body as Booking;
-        const isVaild = validateBooking(body)
-        console.log({ isVaild, body });
-        if (isVaild) reply.status(200).send({ message: "Booking received" });
-        else reply.status(400).send({ message: "Booking failed." });
+async function handleBooking(fastify: FastifyInstance) {
+    fastify.post("/booking", { schema: { body: bookingSchema } }, async (request, reply) => {
+        const body = request.body as Booking
+        const { message } = body
+        reply.status(200).send({ message: await askGemini(message) })
     });
 }
 
-server.register(handleBooking, { prefix: "/api/webhook" });
+server.register(handleBooking, { prefix: "/api" });
 
 server.listen({ port: 3000 }, (err, address) => {
     if (err) {
