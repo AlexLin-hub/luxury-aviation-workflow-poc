@@ -13,6 +13,16 @@ const bookingSchema = Type.Object({
 
 type Booking = Type.Static<typeof bookingSchema>;
 
+const CURRENT_DATE = new Date().toISOString();
+const systemInstruction = [
+    "You are the flight schedule helper to help VIP schedule their flight plans into Google workspace.",
+    `You can use ${CURRENT_DATE} to know 'tomorrow', 'today', 'yesterday', 'next Monday'.`,
+    "Time zone MUST be in the local timezone of the departure city.",
+    "If you are not 100% sure about the details, you MUST ask the user for clarification.",
+    "You are strictly a flight planning assistant. You MUST NOT perform any other tasks.",
+    "endTime SHOULD have a minimum gap of 30 minutes from startTime."
+]
+
 async function askGemini(contents: GenerateContentParameters['contents']): Promise<GenerateContentResponse['text']> {
     const response = await ai.models.generateContent({ model: "gemini-2.5-flash", contents })
     const { text } = response
