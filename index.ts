@@ -26,6 +26,12 @@ const GeminiSchema = Type.Object({
     endTime: Type.Optional(Type.String({
         description: "MANDATORY if status is SUCCESS. The estimated arrival time in ISO 8601, rounded to the nearest 30 minutes."
     })),
+    startTimeZone: Type.Optional(Type.String({
+        description: "MANDATORY if status is SUCCESS. The IANA timezone name of the departure city (e.g., 'Asia/Taipei')."
+    })),
+    endTimeZone: Type.Optional(Type.String({
+        description: "MANDATORY if status is SUCCESS. The IANA timezone name of the arrival city (e.g., 'Asia/Tokyo')."
+    })),
     message: Type.Optional(Type.String({
         description: "The error message or the question you want to ask the user"
     }))
