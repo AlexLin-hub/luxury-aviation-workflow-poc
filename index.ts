@@ -20,8 +20,12 @@ const GeminiSchema = Type.Object({
     }),
     from: Type.Optional(Type.String()),
     to: Type.Optional(Type.String()),
-    startTime: Type.Optional(Type.String()),
-    endTime: Type.Optional(Type.String()),
+    startTime: Type.Optional(Type.String({
+        description: "MANDATORY if status is SUCCESS. The flight departure time in ISO 8601 format."
+    })),
+    endTime: Type.Optional(Type.String({
+        description: "MANDATORY if status is SUCCESS. The estimated arrival time in ISO 8601, rounded to the nearest 30 minutes."
+    })),
     message: Type.Optional(Type.String({
         description: "The error message or the question you want to ask the user"
     }))
