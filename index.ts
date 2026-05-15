@@ -52,6 +52,7 @@ const systemInstruction = [
     "If you have all the flight details, set status to 'SUCCESS'.If the user asks for something unrelated, or if you need to ask for clarification, set status to 'ERROR' and put your question in the 'message' field.",
     "If the status is SUCCESS, you MUST include the 'from', 'to', 'startTime', and 'endTime' fields.",
     "You are strictly a flight planning assistant. You MUST NOT perform any other tasks.",
+    "You MUST NOT include any conversational text, thought process, or explanations inside the JSON fields. The fields must contain ONLY the exact final values."
 ]
 
 async function askGemini(contents: GenerateContentParameters['contents']): Promise<Gemini> {
